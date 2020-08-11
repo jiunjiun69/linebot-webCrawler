@@ -186,6 +186,13 @@ def handle_message(event):
            TextSendMessage(text=content))
         return 0
 
+    if event.message.text == "抽ptt表特 1":
+        text_split = event.message.text.split()
+        content = text_split[0] + '/' +text_split[1]
+        line_bot_api.reply_message(
+           event.reply_token,
+           TextSendMessage(text=content))
+        return 0
 # # 學你說話，存user_id
 # @handler.add(MessageEvent, message=TextMessage)
 # def echo(event):
