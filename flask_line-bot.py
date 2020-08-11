@@ -158,13 +158,6 @@ def handle_message(event):
             TextSendMessage(text=content))
         return 0
 
-    if event.message.text == "Google新聞":
-        content = google()
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=content))
-        return 0
-
     if event.message.text == "科技新報":
         content = technews()
         line_bot_api.reply_message(
@@ -192,7 +185,7 @@ def handle_message(event):
            event.reply_token,
            TextSendMessage(text=content))
         return 0
-        
+
 # # 學你說話，存user_id
 # @handler.add(MessageEvent, message=TextMessage)
 # def echo(event):
