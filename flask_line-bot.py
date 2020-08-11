@@ -4,27 +4,12 @@ import os
 from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-
 import time
 from linebot.exceptions import LineBotApiError
-
 import configparser
 
-# import json
-# from datetime import datetime
-# import firebase_admin
-# from firebase_admin import credentials
-# from firebase_admin import firestore
-# from flask import Flask, Response, render_template
-
-
 app = Flask(__name__)
-
-# cred = credentials.Certificate('serviceAccount.json')
-# firebase_admin.initialize_app(cred)
-
 
 # LINE 聊天機器人的基本資料
 config = configparser.ConfigParser()
@@ -32,7 +17,6 @@ config.read('config.ini')
 
 line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token')) #聊天機器人的 Chennel access token
 handler = WebhookHandler(config.get('line-bot', 'channel_secret')) #聊天機器人的 Channel secret
-
 
 # 接收 LINE 的資訊
 @app.route("/callback", methods=['POST'])
@@ -58,14 +42,13 @@ def echo(event):
         )
 
         user_id = event.source.user_id #存user_id
-        push_message(user_id) #開始進行主動推播訊息
+        # push_message(user_id) #開始進行主動推播訊息
         
 
 #主動推播
 def push_message(user_id):
     # push message to one user
     line_bot_api.push_message(user_id, TextSendMessage(text='Hello World!'))
-
 
 if __name__ == "__main__":
     app.run()
