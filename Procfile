@@ -1,0 +1,1 @@
+web: gunicorn flask_line-bot:app –preload
