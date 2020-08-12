@@ -234,6 +234,7 @@ def handle_message(event):
                     #傳出圖檔
                     url = 'https:' + i + '.jpg'
                     
+                    content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址'
                     try:
                         message = ImageSendMessage(
                             original_content_url=url,
@@ -244,12 +245,12 @@ def handle_message(event):
                     # except LineBotApiError as e:
                     except:
                     # error handle
-                        line_bot_api.push_message(
-                            use_id,
-                            TextSendMessage(text=url)
-                        )
+                        # line_bot_api.push_message(
+                        #     use_id,
+                        #     TextSendMessage(text=url)
+                        # )
                         # content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址' + '\n錯誤訊息：' + str(e.error.message)
-                        content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址'
+                        content = content + '\n' + url
                         # raise e
                         # raise
                     #傳出圖檔
