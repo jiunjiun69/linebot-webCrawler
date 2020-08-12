@@ -235,11 +235,11 @@ def handle_message(event):
                     url = 'https:' + i + '.jpg'
                     
                     try:
-                        message = ImageSendMessage(
-                            original_content_url=url,
-                            preview_image_url=url
-                        )
-                        line_bot_api.push_message(use_id, message)
+                        # message = ImageSendMessage(
+                        #     original_content_url=url,
+                        #     preview_image_url=url
+                        # )
+                        # line_bot_api.push_message(use_id, message)
                         content = '搜索到了!'
                     except LineBotApiError as e:
                     # error handle
