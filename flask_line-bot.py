@@ -151,7 +151,9 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, Group_ID)
         print ('Reply Group ID =>' + event.source.group_id)
     else:
+        line_bot_api.reply_message(event.reply_token, TextMessage(text=event.message.text))
         None
+
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
 
