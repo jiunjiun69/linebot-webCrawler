@@ -251,7 +251,7 @@ def handle_message(event):
                         # content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址' + '\n錯誤訊息：' + str(e.error.message)
                         content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址'
                         # raise e
-                        raise
+                        # raise
                     #傳出圖檔
         
             else: 
