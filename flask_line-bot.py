@@ -229,7 +229,7 @@ def handle_message(event):
                img.append(t['href'])
         
             if len(img) > 0:
-                content = '搜索到了!'
+                # content = '搜索到了!'
                 for i in img:
                     #傳出圖檔
                     url = 'https:' + i + '.jpg'
@@ -237,7 +237,15 @@ def handle_message(event):
                         original_content_url=url,
                         preview_image_url=url
                     )
-                    line_bot_api.push_message(use_id, message)
+                    try:
+                        line_bot_api.push_message(use_id, message)
+                        content = '搜索到了!'
+                    except:
+                        line_bot_api.push_message(
+                            use_id,
+                            TextSendMessage(text=url)
+                        )
+                        content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址'
                     #傳出圖檔
         
             else: 
