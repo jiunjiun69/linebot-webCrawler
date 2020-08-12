@@ -199,11 +199,13 @@ def handle_message(event):
 
     text_split = event.message.text.split()
     if text_split[0] == "爬ptt表特":
-        # content = text_split[1] #篇數
-
-        articles_switch = int(text_split[1]) - 1
-        url = "https://www.ptt.cc/bbs/Beauty/index.html"
-
+        #text_split[1] #頁數
+        #text_split[2] #篇數 
+        
+        articles_switch = int(text_split[2]) - 1
+        # url = "https://www.ptt.cc/bbs/Beauty/index.html"
+        url = "https://www.ptt.cc/bbs/Beauty/index" + str(text_split[1]) + ".html"
+        
         #18歲驗證
         session = requests.Session()
         session.post('https://www.ptt.cc/ask/over18', data = {'from' : url, 'yes' : 'yes'})
@@ -215,7 +217,7 @@ def handle_message(event):
         img_url = []
         for t in article_list:
             img_url.append('https://www.ptt.cc' + t['href'])
-        if (int(text_split[1]) <= len(img_url)) and (int(text_split[1]) > 0):
+        if (int(text_split[2]) <= len(img_url)) and (int(text_split[2]) > 0):
             #取第幾篇文章
             response = session.get(img_url[articles_switch]) #篇數
             soup     = BeautifulSoup(response.text, 'html.parser')
