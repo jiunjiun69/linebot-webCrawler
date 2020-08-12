@@ -233,11 +233,12 @@ def handle_message(event):
                 for i in img:
                     #傳出圖檔
                     url = 'https:' + i + '.jpg'
-                    message = ImageSendMessage(
-                        original_content_url=url,
-                        preview_image_url=url
-                    )
+                    
                     try:
+                        message = ImageSendMessage(
+                            original_content_url=url,
+                            preview_image_url=url
+                        )
                         line_bot_api.push_message(use_id, message)
                         content = '搜索到了!'
                     except:
