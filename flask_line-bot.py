@@ -223,7 +223,7 @@ def handle_message(event):
                 for i in img:
                     #傳出圖檔
                     try:
-                        line_bot_api.push_message(to, ImageSendMessage(original_content_url = 'https:' + i, preview_image_url = 'https:' + i))
+                        line_bot_api.push_message(event.reply_token, ImageSendMessage(original_content_url = 'https:' + i, preview_image_url = 'https:' + i))
                     except LineBotApiError as e:
                         # error handle
                         raise e
