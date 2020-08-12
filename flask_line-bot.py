@@ -227,6 +227,7 @@ def handle_message(event):
                         preview_image_url=url
                     )
                     line_bot_api.reply_message(token_save, message)
+                    line_bot_api.reply_message(token_save, message)
                     #傳出圖檔
         
             else: 
