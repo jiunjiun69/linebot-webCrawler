@@ -149,7 +149,7 @@ def handle_message(event):
         user_id = event.source.group_id
         print ('Reply Group ID =>' + event.source.group_id)
     elif event.source.type != 'group':
-        User_ID = TextMessage(text=event.source.user_id)
+        User_ID = TextMessage(text=event.source.type)
         line_bot_api.reply_message(event.reply_token, User_ID)
         user_id = event.source.user_id
         print ('Reply User ID =>' + event.source.user_id)
