@@ -142,13 +142,16 @@ def weather():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    if event.message.text == 'ID?' or event.message.text == 'id?':
+    user_id = ''
+    if event.source.type != 'group':
         User_ID = TextMessage(text=event.source.user_id)
         line_bot_api.reply_message(event.reply_token, User_ID)
+        user_id = event.source.user_id
         print ('Reply User ID =>' + event.source.user_id)
-    elif event.message.text == 'GroupID?':
+    elif event.source.type == 'group':
         Group_ID = TextMessage(text=event.source.group_id)
         line_bot_api.reply_message(event.reply_token, Group_ID)
+        user_id = event.source.group_id
         print ('Reply Group ID =>' + event.source.group_id)
     else:
         line_bot_api.reply_message(event.reply_token, TextMessage(text=event.message.text))
@@ -201,7 +204,6 @@ def handle_message(event):
 
     text_split = event.message.text.split()
     if text_split[0] == "爬ptt表特":
-        token_save = event.reply_token #先用變數儲存 event.reply_token
         # content = text_split[1] #篇數
 
         articles_switch = int(text_split[1]) - 1
@@ -238,7 +240,7 @@ def handle_message(event):
                         original_content_url=url,
                         preview_image_url=url
                     )
-                    line_bot_api.reply_message(token_save, message)
+                    line_bot_api.push_message(user_id, message)
                     #傳出圖檔
         
             else: 
