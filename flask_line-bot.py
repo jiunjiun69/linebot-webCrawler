@@ -223,7 +223,7 @@ def handle_message(event):
                 for i in img:
                     #傳出圖檔
                     url = 'https:' + i + '.jpg'
-                    line_bot_api.reply_message(event.source.user_id, ImageSendMessage(original_content_url = url, preview_image_url = url))
+                    line_bot_api.push_message("Ua7ea01922c66d7ce0ab976b9b4b49845", ImageSendMessage(original_content_url = url, preview_image_url = url))
                     #傳出圖檔
         
             else: 
