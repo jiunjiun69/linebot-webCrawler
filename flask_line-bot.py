@@ -235,20 +235,23 @@ def handle_message(event):
                     url = 'https:' + i + '.jpg'
                     
                     try:
-                        # message = ImageSendMessage(
-                        #     original_content_url=url,
-                        #     preview_image_url=url
-                        # )
-                        # line_bot_api.push_message(use_id, message)
+                        message = ImageSendMessage(
+                            original_content_url=url,
+                            preview_image_url=url
+                        )
+                        line_bot_api.push_message(use_id, message)
                         content = '搜索到了!'
-                    except LineBotApiError as e:
+                    # except LineBotApiError as e:
+                    except:
                     # error handle
                         # line_bot_api.push_message(
                         #     use_id,
                         #     TextSendMessage(text=url)
                         # )
-                        content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址' + '\n錯誤訊息：' + str(e.error.message)
-                        raise e
+                        # content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址' + '\n錯誤訊息：' + str(e.error.message)
+                        content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址'
+                        # raise e
+                        raise
                     #傳出圖檔
         
             else: 
