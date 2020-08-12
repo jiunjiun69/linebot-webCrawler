@@ -142,19 +142,15 @@ def weather():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    user_id = ''
+    use_id = ''
     if event.source.type == 'user':
-        User_ID = TextMessage(text=event.source.user_id)
-        line_bot_api.reply_message(event.reply_token, User_ID)
-        user_id = event.source.user_id
-        print ('Reply User ID =>' + event.source.user_id)
+        use_id = event.source.user_id
+    elif event.source.type == 'group':
+        use_id = event.source.group_id
     elif event.source.type == 'room':
-        Group_ID = TextMessage(text=event.source.group_id)
-        line_bot_api.reply_message(event.reply_token, Group_ID)
-        user_id = event.source.group_id
-        print ('Reply Group ID =>' + event.source.group_id)
+        use_id = event.source.room_id
     else:
-        None
+        raise Exception('event.source.type:%s' % event.source.type)
 
     print("event.reply_token:", event.reply_token)
     print("event.message.text:", event.message.text)
@@ -239,7 +235,7 @@ def handle_message(event):
                         original_content_url=url,
                         preview_image_url=url
                     )
-                    line_bot_api.push_message(user_id, message)
+                    line_bot_api.push_message(use_id, message)
                     #傳出圖檔
         
             else: 
