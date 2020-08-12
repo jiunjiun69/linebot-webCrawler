@@ -5,6 +5,7 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import ImageSendMessage, VideoSendMessage, LocationSendMessage, StickerSendMessage
 import time
 from linebot.exceptions import LineBotApiError
 import configparser
@@ -187,8 +188,54 @@ def handle_message(event):
         return 0
 
     text_split = event.message.text.split()
-    if text_split[0] == "抽ptt表特":
-        content = text_split[1]
+    if text_split[0] == "爬ptt表特":
+        # content = text_split[1] #篇數
+
+        import requests
+        from bs4 import BeautifulSoup
+        articles_switch = text_split[1] - 1
+        url = "https://www.ptt.cc/bbs/Beauty/index.html"
+
+        #18歲驗證
+        session = requests.Session()
+        session.post('https://www.ptt.cc/ask/over18', data = {'from' : url, 'yes' : 'yes'})
+        response = session.get(url)
+        soup     = BeautifulSoup(response.text, 'html.parser')
+
+        #存第一頁文章網址
+        article_list = soup.select('div.title a')
+        img_url = []
+        for t in article_list:
+            img_url.append('https://www.ptt.cc' + t['href'])
+        if (text_split[1] <= len(img_url)) and (text_split[1] > 0):
+            #取第幾篇文章
+            response = session.get(img_url[articles_switch]) #篇數
+            soup     = BeautifulSoup(response.text, 'html.parser')
+            img_list = soup.select('div.richcontent a')
+
+            #存出圖檔網址
+            img = []
+            for t in img_list:
+               img.append(t['href'])
+        
+            if len(img) > 0:
+                content = '搜索到了!'
+                for i in img:
+                    #傳出圖檔
+                    try:
+                        line_bot_api.push_message(to, ImageSendMessage(original_content_url = 'https:' + i, preview_image_url = 'https:' + i))
+                    except LineBotApiError as e:
+                        # error handle
+                        raise e
+                    #傳出圖檔
+        
+            else: 
+                content = '此篇沒有圖片喔'
+        else:
+            content = '超過文章數了，請輸入正常的數字'
+
+
+
         line_bot_api.reply_message(
            event.reply_token,
            TextSendMessage(text=content))
