@@ -193,7 +193,7 @@ def handle_message(event):
 
         import requests
         from bs4 import BeautifulSoup
-        articles_switch = text_split[1] - 1
+        articles_switch = int(text_split[1]) - 1
         url = "https://www.ptt.cc/bbs/Beauty/index.html"
 
         #18歲驗證
