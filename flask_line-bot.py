@@ -189,6 +189,7 @@ def handle_message(event):
 
     text_split = event.message.text.split()
     if text_split[0] == "爬ptt表特":
+        token_save = event.reply_token #先用變數儲存 event.reply_token
         # content = text_split[1] #篇數
 
         articles_switch = int(text_split[1]) - 1
@@ -225,7 +226,7 @@ def handle_message(event):
                         original_content_url=url,
                         preview_image_url=url
                     )
-                    line_bot_api.reply_message(event.reply_token, message)
+                    line_bot_api.reply_message(token_save, message)
                     #傳出圖檔
         
             else: 
