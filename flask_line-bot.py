@@ -191,8 +191,6 @@ def handle_message(event):
     if text_split[0] == "爬ptt表特":
         # content = text_split[1] #篇數
 
-        import requests
-        from bs4 import BeautifulSoup
         articles_switch = int(text_split[1]) - 1
         url = "https://www.ptt.cc/bbs/Beauty/index.html"
 
@@ -223,7 +221,7 @@ def handle_message(event):
                 for i in img:
                     #傳出圖檔
                     url = 'https:' + i + '.jpg'
-                    line_bot_api.push_message("Ua7ea01922c66d7ce0ab976b9b4b49845", ImageSendMessage(original_content_url = url, preview_image_url = url))
+                    line_bot_api.reply_message(event.reply_token, ImageSendMessage(original_content_url = url, preview_image_url = url))
                     #傳出圖檔
         
             else: 
@@ -237,6 +235,7 @@ def handle_message(event):
            event.reply_token,
            TextSendMessage(text=content))
         return 0
+        
 # # 學你說話，存user_id
 # @handler.add(MessageEvent, message=TextMessage)
 # def echo(event):
