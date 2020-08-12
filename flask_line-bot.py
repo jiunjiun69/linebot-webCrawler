@@ -143,16 +143,16 @@ def weather():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_id = ''
-    if event.source.type != 'group':
-        User_ID = TextMessage(text=event.source.user_id)
-        line_bot_api.reply_message(event.reply_token, User_ID)
-        user_id = event.source.user_id
-        print ('Reply User ID =>' + event.source.user_id)
-    elif event.source.type == 'group':
+    if event.source.type == 'group':
         Group_ID = TextMessage(text=event.source.group_id)
         line_bot_api.reply_message(event.reply_token, Group_ID)
         user_id = event.source.group_id
         print ('Reply Group ID =>' + event.source.group_id)
+    elif event.source.type != 'group':
+        User_ID = TextMessage(text=event.source.user_id)
+        line_bot_api.reply_message(event.reply_token, User_ID)
+        user_id = event.source.user_id
+        print ('Reply User ID =>' + event.source.user_id)
     else:
         line_bot_api.reply_message(event.reply_token, TextMessage(text=event.message.text))
         None
