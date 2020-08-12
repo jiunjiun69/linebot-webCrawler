@@ -243,10 +243,10 @@ def handle_message(event):
                         content = '搜索到了!'
                     except LineBotApiError as e:
                     # error handle
-                        line_bot_api.push_message(
-                            use_id,
-                            TextSendMessage(text=url)
-                        )
+                        # line_bot_api.push_message(
+                        #     use_id,
+                        #     TextSendMessage(text=url)
+                        # )
                         content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址' + e
                         raise e
                     #傳出圖檔
