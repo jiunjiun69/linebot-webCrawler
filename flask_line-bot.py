@@ -207,7 +207,7 @@ def handle_message(event):
         img_url = []
         for t in article_list:
             img_url.append('https://www.ptt.cc' + t['href'])
-        if (text_split[1] <= len(img_url)) and (text_split[1] > 0):
+        if (int(text_split[1]) <= len(img_url)) and (int(text_split[1]) > 0):
             #取第幾篇文章
             response = session.get(img_url[articles_switch]) #篇數
             soup     = BeautifulSoup(response.text, 'html.parser')
