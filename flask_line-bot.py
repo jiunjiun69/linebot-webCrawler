@@ -243,7 +243,7 @@ def handle_message(event):
             else: 
                 content = '此篇沒有圖片喔'
         else:
-            content = '超過文章數了，請輸入正常的數字'
+            content = '超過文章數了，此頁只有:' + str(len(img_url)) + '篇文章，請輸入正常的數字'
 
 
 
