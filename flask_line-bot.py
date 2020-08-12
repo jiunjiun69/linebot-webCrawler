@@ -230,11 +230,11 @@ def handle_message(event):
         
             if len(img) > 0:
                 # content = '搜索到了!'
+                content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址'
                 for i in img:
                     #傳出圖檔
                     url = 'https:' + i + '.jpg'
                     
-                    content = '每月免費傳送圖片額度已滿或其他未知錯誤，所以只傳送圖片網址'
                     try:
                         message = ImageSendMessage(
                             original_content_url=url,
